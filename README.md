@@ -1,7 +1,7 @@
 # TestWebViewApp
 Application with build-in web browser.
 
-WebViewApp is simple sigle activity application, that allows to serf the Internet through the WebView. WebView is located in fragment and takes all its size.
+WebViewApp is simple single activity application, that allows to serf the Internet through the WebView. WebView is located in fragment and takes all its size.
 App has two fragments. First is created in order to show loading screen while response is arriving.
 Second makes request to the server after response was arrived and set link from response to the webView depending on its first run or not.
 
