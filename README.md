@@ -13,7 +13,7 @@ Completed additional tasks:
 ![Back](https://user-images.githubusercontent.com/69154266/118257213-09b7fe00-b4b7-11eb-98ce-1e588790e88d.gif)
 
 
-2. While app makes first request to the server, fields are saving in application using sharedPreferences. It allows to use links from response without making another request.
+2. While app makes first request to the server, response are saving in application using sharedPreferences. It allows to use links from response without making another request.
 3. App runs in fullscreen mode.
 4. Changing portrait and landscape mode without restarting webView and saving state.
 
