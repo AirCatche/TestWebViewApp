@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.slobodyanyuk_mykhailo.testapp.databinding.FragmentLoadingBinding
 
 class LoadingFragment: Fragment() {
+
     private var _binding: FragmentLoadingBinding? = null
 
     // Use between OnCreateView & OnDestroyView
@@ -22,5 +23,12 @@ class LoadingFragment: Fragment() {
         _binding = null
     }
 
-
+    companion object {
+        fun newInstance() : LoadingFragment{
+            val args: Bundle = Bundle()
+            val fragment = LoadingFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 }

@@ -11,9 +11,9 @@ import retrofit2.http.Headers
 
 interface TestApi{
     companion object {
-        operator fun invoke(networkConnInterceptor: NetworkConnInterceptor) : TestApi {
+        operator fun invoke(connectionInterceptor: ConnectionInterceptor) : TestApi {
             val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(networkConnInterceptor)
+                .addInterceptor(connectionInterceptor)
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)

@@ -6,7 +6,7 @@ import org.json.JSONObject
 import retrofit2.Response
 
 abstract class TestApiRequest {
-    suspend fun <T: Any> apiRequest(call: suspend () -> Response<T>) : T{
+    suspend fun <T: Any> apiRequest(call: suspend () -> Response<T>) : T {
         val response = call.invoke()
         if (response.isSuccessful) {
             return response.body()!!
@@ -16,7 +16,7 @@ abstract class TestApiRequest {
             error?.let {
                 try {
                     errorMessage.append(JSONObject(it).getString("errorMessage"))
-                } catch (e: JSONException) { }
+                } catch (ignored: JSONException) { }
                  errorMessage.append("\n")
             }
             errorMessage.append("Error code: ${response.code()}")

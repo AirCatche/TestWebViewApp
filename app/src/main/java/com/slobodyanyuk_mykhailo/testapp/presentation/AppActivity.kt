@@ -12,7 +12,7 @@ import com.slobodyanyuk_mykhailo.testapp.viewmodel.AppViewModelFactory
 import com.slobodyanyuk_mykhailo.testapp.viewmodel.OnLoadingListener
 import com.slobodyanyuk_mykhailo.testapp.R
 import com.slobodyanyuk_mykhailo.testapp.databinding.ActivityApplicationBinding
-import com.slobodyanyuk_mykhailo.testapp.model.network.NetworkConnInterceptor
+import com.slobodyanyuk_mykhailo.testapp.model.network.ConnectionInterceptor
 import com.slobodyanyuk_mykhailo.testapp.model.responses.LinksResponse
 import com.slobodyanyuk_mykhailo.testapp.utils.Constants
 
@@ -29,12 +29,12 @@ class AppActivity : AppCompatActivity(), OnLoadingListener {
         firstStart = prefs.getBoolean("firstRun", true)
         binding = ActivityApplicationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val viewModelFactory = AppViewModelFactory(NetworkConnInterceptor(this))
+        val viewModelFactory = AppViewModelFactory(ConnectionInterceptor(this))
         appViewModel = ViewModelProvider(this, viewModelFactory).get(AppViewModel::class.java)
         appViewModel.loadingListener = this
         fragmentManager = supportFragmentManager
 
-        val fragment: Fragment = LoadingFragment()
+        val fragment: Fragment = LoadingFragment.newInstance()
         fragmentManager.beginTransaction().replace(R.id.main_fragment_container, fragment)
             .commitNow()
     }
@@ -44,7 +44,7 @@ class AppActivity : AppCompatActivity(), OnLoadingListener {
         if (firstStart) {
             appViewModel.fetchData()
         } else {
-            val fragment = BrowserFragment()
+            val fragment = BrowserFragment.newInstance()
             fragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.transaction_animation_enter,
@@ -62,7 +62,7 @@ class AppActivity : AppCompatActivity(), OnLoadingListener {
             it.putString(Constants.KEY_LINK, links.link)
             it.putString(Constants.KEY_HOME, links.home)
         }.apply()
-        val fragment = BrowserFragment()
+        val fragment = BrowserFragment.newInstance()
         fragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.transaction_animation_enter,
@@ -77,7 +77,6 @@ class AppActivity : AppCompatActivity(), OnLoadingListener {
     override fun onLoadingFailure(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
-
     override fun onBackPressed() {
         val webView = supportFragmentManager.findFragmentByTag(Constants.BROWSER_FRAGMENT)
         if (webView is BrowserFragment) {

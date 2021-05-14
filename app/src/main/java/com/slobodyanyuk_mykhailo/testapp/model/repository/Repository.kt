@@ -1,15 +1,13 @@
 package com.slobodyanyuk_mykhailo.testapp.model.repository
 
-import com.slobodyanyuk_mykhailo.testapp.model.network.NetworkConnInterceptor
+import com.slobodyanyuk_mykhailo.testapp.model.network.ConnectionInterceptor
 import com.slobodyanyuk_mykhailo.testapp.model.network.TestApi
 import com.slobodyanyuk_mykhailo.testapp.model.network.TestApiRequest
 import com.slobodyanyuk_mykhailo.testapp.model.responses.LinksResponse
 
-class Repository(private val networkConnInterceptor: NetworkConnInterceptor): TestApiRequest() {
+class Repository(private val connection: ConnectionInterceptor): TestApiRequest() {
 
-    suspend fun getLinks() : LinksResponse {
-       return apiRequest {
-           TestApi(networkConnInterceptor).getLinks()
-       }
+    suspend fun getLinks() : LinksResponse = apiRequest {
+        TestApi(connection).getLinks()
     }
 }
